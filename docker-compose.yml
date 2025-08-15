@@ -25,6 +25,11 @@ services:
     image: mongo  # Use the official MongoDB image
     ports:
       - '27017:27017'  # Expose MongoDB default port
+    healthcheck:
+      test: [ 'CMD', 'mongo', '--eval', 'db.runCommand({ ping: 1 })' ]  # Check MongoDB health
+      interval: 30s  # Interval between health checks
+      timeout: 10s  # Timeout for health check
+      retries: 3  # Number of retries before considering the service unhealthy
 
 networks:
   default:
