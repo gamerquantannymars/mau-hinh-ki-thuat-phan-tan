@@ -34,3 +34,5 @@ services:
 networks:
   default:
     driver: bridge  # Define the network driver to use
+
+  # Additional configuration could be added here for custom networks if needed.
