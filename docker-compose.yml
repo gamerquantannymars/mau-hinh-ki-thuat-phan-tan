@@ -6,6 +6,11 @@ services:
       - '3000:3000'  # Expose port 3000 for user service
     depends_on:
       - mongo  # Wait for the mongo service to start before the user service
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:3000/health' ]  # Check user service health
+      interval: 30s  # Duration between each health check
+      timeout: 10s  # Maximum time to wait for a health check
+      retries: 3  # Number of failures allowed before marking service as unhealthy
 
   product-service:
     build: ./product-service  # Build the product service from the specified directory
@@ -13,6 +18,11 @@ services:
       - '3001:3001'  # Expose port 3001 for product service
     depends_on:
       - mongo  # Wait for the mongo service to start before the product service
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:3001/health' ]  # Check product service health
+      interval: 30s  # Duration between each health check
+      timeout: 10s  # Maximum time to wait for a health check
+      retries: 3  # Number of failures allowed before marking service as unhealthy
 
   order-service:
     build: ./order-service  # Build the order service from the specified directory
