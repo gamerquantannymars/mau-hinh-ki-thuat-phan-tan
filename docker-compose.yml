@@ -1,36 +1,36 @@
-version: '3'
+version: '3'  # Define the version of the Docker Compose file
 services:
   user-service:
-    build: ./user-service  # Build user service from the specified directory
+    build: ./user-service  # Build the user service from the specified directory
     ports:
-      - '3000:3000'  # Expose port 3000
+      - '3000:3000'  # Expose port 3000 for user service
     depends_on:
-      - mongo  # Wait for mongo service to start
+      - mongo  # Wait for the mongo service to start before the user service
 
   product-service:
-    build: ./product-service  # Build product service from the specified directory
+    build: ./product-service  # Build the product service from the specified directory
     ports:
-      - '3001:3001'  # Expose port 3001
+      - '3001:3001'  # Expose port 3001 for product service
     depends_on:
-      - mongo  # Wait for mongo service to start
+      - mongo  # Wait for the mongo service to start before the product service
 
   order-service:
-    build: ./order-service  # Build order service from the specified directory
+    build: ./order-service  # Build the order service from the specified directory
     ports:
-      - '3002:3002'  # Expose port 3002
+      - '3002:3002'  # Expose port 3002 for order service
     depends_on:
-      - mongo  # Wait for mongo service to start
+      - mongo  # Wait for the mongo service to start before the order service
 
   mongo:
     image: mongo  # Use the official MongoDB image
     ports:
-      - '27017:27017'  # Expose MongoDB default port
+      - '27017:27017'  # Expose the default port for MongoDB
     healthcheck:
-      test: [ 'CMD', 'mongo', '--eval', 'db.runCommand({ ping: 1 })' ]  # Check MongoDB health
-      interval: 30s  # Interval between health checks
-      timeout: 10s  # Timeout for health check
-      retries: 3  # Number of retries before considering the service unhealthy
+      test: [ 'CMD', 'mongo', '--eval', 'db.runCommand({ ping: 1 })' ]  # Check MongoDB health by pinging
+      interval: 30s  # Duration between each health check
+      timeout: 10s  # Maximum time to wait for a health check
+      retries: 3  # Number of failures allowed before marking service as unhealthy
 
 networks:
   default:
-    driver: bridge  # Use bridge network driver
+    driver: bridge  # Define the network driver to use
