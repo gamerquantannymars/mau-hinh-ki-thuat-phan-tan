@@ -1,31 +1,31 @@
 version: '3'
 services:
   user-service:
-    build: ./user-service
+    build: ./user-service  # Build user service from the specified directory
     ports:
-      - '3000:3000'
+      - '3000:3000'  # Expose port 3000
     depends_on:
-      - mongo
+      - mongo  # Wait for mongo service to start
 
   product-service:
-    build: ./product-service
+    build: ./product-service  # Build product service from the specified directory
     ports:
-      - '3001:3001'
+      - '3001:3001'  # Expose port 3001
     depends_on:
-      - mongo
+      - mongo  # Wait for mongo service to start
 
   order-service:
-    build: ./order-service
+    build: ./order-service  # Build order service from the specified directory
     ports:
-      - '3002:3002'
+      - '3002:3002'  # Expose port 3002
     depends_on:
-      - mongo
+      - mongo  # Wait for mongo service to start
 
   mongo:
-    image: mongo
+    image: mongo  # Use the official MongoDB image
     ports:
-      - '27017:27017'
+      - '27017:27017'  # Expose MongoDB default port
 
 networks:
   default:
-    driver: bridge
+    driver: bridge  # Use bridge network driver
